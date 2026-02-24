@@ -1,9 +1,11 @@
----
-name: mobile-ios-design
-description: Master iOS Human Interface Guidelines and SwiftUI patterns for building native iOS apps. Use when designing iOS interfaces, implementing SwiftUI views, or ensuring apps follow Apple's design principles.
----
-
 # iOS Mobile Design
+
+> Core iOS/SwiftUI concepts and quick-start patterns. For detailed implementation patterns, see the dedicated reference files:
+>
+> - [hig-patterns.md](references/hig-patterns.md) — Layout, spacing, typography, colors, accessibility
+> - [ios-navigation.md](references/ios-navigation.md) — NavigationStack, sheets, tabs, deep linking
+> - [swiftui-components.md](references/swiftui-components.md) — Lists, forms, buttons, animations, gestures
+> - [ddd-patterns.md](references/ddd-patterns.md) — Entities, value objects, aggregates, repositories
 
 Master iOS Human Interface Guidelines (HIG) and SwiftUI patterns to build polished, native iOS applications that feel at home on Apple platforms.
 

@@ -16,6 +16,11 @@
 **Description:**
 [Very detailed description of the requirement, including purpose, expected behavior, edge cases, and any relevant business rules.]
 
+**Acceptance Criteria:**
+- [ ] [Criterion 1 — specific, testable condition that must be met]
+- [ ] [Criterion 2]
+- [ ] [Criterion 3]
+
 ---
 
 -->

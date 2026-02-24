@@ -51,6 +51,7 @@ The Architect role is responsible for defining and maintaining the system's high
 - When modifying architecture, update **all three files** (`architecture.md`, `conventions.md`, `diagrams.md`) to stay in sync.
 - Never change the system design without updating the corresponding diagram.
 - Never introduce a pattern that contradicts `conventions.md`.
+- If the project uses **Domain-Driven Design (DDD)**, define bounded contexts, aggregates, and ubiquitous language in `architecture.md` — the Developer role depends on these definitions.
 
 ---
 
@@ -61,3 +62,16 @@ The Architect role is responsible for defining and maintaining the system's high
 3. All code standards must live in **conventions.md**.
 4. All visual representations must live in **diagrams.md**.
 5. Keep the three files consistent with each other at all times.
+
+---
+
+## Downstream Dependents
+
+These roles read Architect files and depend on them being accurate and up to date:
+
+| Consumer          | Files they read                                    | Why                                                       |
+| ----------------- | -------------------------------------------------- | --------------------------------------------------------- |
+| **Product Owner** | `architecture.md`, `conventions.md`, `diagrams.md` | Writes requirements that align with the system design     |
+| **Developer**     | `architecture.md`, `conventions.md`, `diagrams.md` | Implements code within the defined layers and conventions |
+
+> **Impact:** Any change to architecture, conventions, or diagrams affects how requirements are written and how code is implemented. Always keep these files accurate.

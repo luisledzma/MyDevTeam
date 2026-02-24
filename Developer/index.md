@@ -12,14 +12,15 @@ The Developer role is responsible for implementing features, fixing bugs, and wr
 
 ## File Map
 
-| File                                   | Purpose                                                                                                                  |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `index.md` (this file)                 | Workflow steps and rules the AI must follow as a Developer                                                               |
-| `unit-tests.md`                        | Testing strategy, patterns, naming conventions, and coverage targets                                                     |
-| `IOs/SKILL.md`                         | Core iOS/SwiftUI design skill — concepts, quick-start patterns, best practices, and common issues                        |
-| `IOs/references/hig-patterns.md`       | Apple Human Interface Guidelines — layout, spacing, typography, colors, toolbar, haptics, accessibility, error handling  |
-| `IOs/references/ios-navigation.md`     | Navigation patterns — NavigationStack, NavigationSplitView, sheets, tabs, deep linking, coordinator pattern, transitions |
-| `IOs/references/swiftui-components.md` | SwiftUI component library — lists, forms, buttons, sheets, loading states, async content, animations, gestures           |
+| File                                   | Purpose                                                                                                                                                   |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.md` (this file)                 | Workflow steps and rules the AI must follow as a Developer                                                                                                |
+| `unit-tests.md`                        | Testing strategy, patterns, naming conventions, and coverage targets                                                                                      |
+| `IOs/SKILL.md`                         | Core iOS/SwiftUI design skill — concepts, quick-start patterns, best practices, and common issues                                                         |
+| `IOs/references/hig-patterns.md`       | Apple Human Interface Guidelines — layout, spacing, typography, colors, toolbar, haptics, accessibility, error handling                                   |
+| `IOs/references/ios-navigation.md`     | Navigation patterns — NavigationStack, NavigationSplitView, sheets, tabs, deep linking, coordinator pattern, transitions                                  |
+| `IOs/references/swiftui-components.md` | SwiftUI component library — lists, forms, buttons, sheets, loading states, async content, animations, gestures                                            |
+| `IOs/references/ddd-patterns.md`       | Domain-Driven Design reference — ubiquitous language, bounded contexts, entities, value objects, aggregates, repositories, domain services, domain events |
 
 ### Upstream Dependencies (read-only — do not modify)
 
@@ -54,6 +55,8 @@ Follow these steps **in order** for every task.
 - Read `../Architect/architecture.md` to understand which layer/module the change belongs to.
 - Read `../Architect/conventions.md` to know naming standards, patterns, and file organization.
 - Read `../Architect/diagrams.md` to understand how components connect.
+- Identify the **bounded context** the task belongs to and confirm which **domain entities, value objects, or aggregates** are involved.
+- Use the **ubiquitous language** defined in `../Architect/architecture.md` — all code symbols (types, methods, variables) must reflect domain terminology.
 - **Never** introduce code that contradicts the architecture or conventions.
 
 ### Step 4 — Load iOS References
@@ -64,6 +67,7 @@ Before writing any SwiftUI code, load the relevant reference files:
 2. **`IOs/references/hig-patterns.md`** — Use for layout/spacing, typography, semantic colors, toolbar patterns, haptics, and accessibility.
 3. **`IOs/references/ios-navigation.md`** — Use for NavigationStack, sheets, tabs, deep linking, and the coordinator pattern.
 4. **`IOs/references/swiftui-components.md`** — Use for lists, forms, buttons, loading states, animations, and gesture implementations.
+5. **`IOs/references/ddd-patterns.md`** — Use to correctly model domain objects (entities vs. value objects vs. aggregates), place business logic in domain/application services, and apply the repository pattern for data access.
 
 > **Rule:** Always consult these files rather than relying on memorized patterns. The reference files are the source of truth for this project's iOS implementation style.
 
@@ -79,6 +83,12 @@ Before writing any SwiftUI code, load the relevant reference files:
 
 - Write the minimum code needed to make failing tests pass.
 - Apply patterns from the iOS reference files — don't improvise when a reference pattern exists.
+- Apply DDD patterns from `IOs/references/ddd-patterns.md`:
+  - Model domain concepts as **entities**, **value objects**, or **aggregates** — never as raw primitives or anemic data bags.
+  - Keep **business logic inside the domain layer**; ViewModels and Views must not contain domain rules.
+  - Use **repositories** to abstract persistence; domain code must not reference data-layer types directly.
+  - Raise **domain events** when state changes that other parts of the system should react to.
+  - Use the **ubiquitous language** consistently — symbol names must match the domain vocabulary.
 - Use semantic colors, SF Symbols, Dynamic Type, and accessibility modifiers as described in `IOs/SKILL.md`.
 - Keep views small and composable; extract reusable components.
 
@@ -86,30 +96,35 @@ Before writing any SwiftUI code, load the relevant reference files:
 
 Before considering the task done, verify **all** of the following:
 
-| Check              | What to verify                                                   |
-| ------------------ | ---------------------------------------------------------------- |
-| **Architecture**   | Code lives in the correct layer/module per `architecture.md`     |
-| **Conventions**    | Naming, file structure, and patterns match `conventions.md`      |
-| **HIG Compliance** | Layout, colors, typography, and spacing follow `hig-patterns.md` |
-| **Navigation**     | Navigation patterns match `ios-navigation.md`                    |
-| **Components**     | SwiftUI components follow patterns from `swiftui-components.md`  |
-| **Accessibility**  | VoiceOver labels, Dynamic Type support, and sufficient contrast  |
-| **Dark Mode**      | UI renders correctly in both light and dark appearances          |
-| **Edge Cases**     | Empty states, error states, and loading states are handled       |
-| **No Warnings**    | Code compiles without warnings                                   |
-| **Test Coverage**  | Tests exist and meet the coverage targets in `unit-tests.md`     |
+| Check              | What to verify                                                                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Architecture**   | Code lives in the correct layer/module per `architecture.md`                                                                                                                         |
+| **DDD**            | Domain objects are correctly typed (entity/value object/aggregate), business logic is in the domain layer, repositories abstract persistence, ubiquitous language is used throughout |
+| **Conventions**    | Naming, file structure, and patterns match `conventions.md`                                                                                                                          |
+| **HIG Compliance** | Layout, colors, typography, and spacing follow `hig-patterns.md`                                                                                                                     |
+| **Navigation**     | Navigation patterns match `ios-navigation.md`                                                                                                                                        |
+| **Components**     | SwiftUI components follow patterns from `swiftui-components.md`                                                                                                                      |
+| **Accessibility**  | VoiceOver labels, Dynamic Type support, and sufficient contrast                                                                                                                      |
+| **Dark Mode**      | UI renders correctly in both light and dark appearances                                                                                                                              |
+| **Edge Cases**     | Empty states, error states, and loading states are handled                                                                                                                           |
+| **No Warnings**    | Code compiles without warnings                                                                                                                                                       |
+| **Test Coverage**  | Tests exist and meet the coverage targets in `unit-tests.md`                                                                                                                         |
 
 ### Step 8 — Build & Fix
 
-- Build the project using `xcodebuild` and fix any compilation errors.
-- Run the test suite and ensure all tests pass.
-- If tests fail, go back to Step 6 and iterate.
-- If the build succeeds but hangs for more than 3 minutes, terminate the process and proceed.
+- **Build only** — run `xcodebuild build` (never `test`, `build-for-testing`, or any test action).
+  ```
+  xcodebuild build -scheme <SchemeName> -destination 'generic/platform=iOS Simulator' | xcpretty
+  ```
+- Fix every **compiler error or warning** until the build succeeds cleanly.
+- **Do not run the test suite** — tests are slow and are run separately outside this workflow.
+- If the build hangs for more than 3 minutes, terminate the process and investigate the cause before retrying.
 
-### Step 9 - Completing work
+### Step 9 — Report Completion
 
-1. Update the item's status to **Completed** in [backlog.md](backlog.md).
-2. Remove the item from [sprint.md](sprint.md) so it is clean for the next sprint.
+1. Update the item's sprint status to **Done** in [sprint.md](../ProductOwner/sprint.md).
+2. Update the item's status to **Completed** in [backlog.md](../ProductOwner/backlog.md).
+3. Remove the item from [sprint.md](../ProductOwner/sprint.md) so it is clean for the next sprint.
 
 ---
 
@@ -118,9 +133,9 @@ Before considering the task done, verify **all** of the following:
 1. **This index is the entry point** — always read it first when acting as Developer.
 2. **TDD is mandatory** — never skip writing tests before implementation.
 3. **Reference files are the source of truth** — always consult them; don't rely on memorized patterns.
-4. **Respect upstream files** — never modify Architect or ProductOwner files from the Developer role.
+4. **Respect upstream files** — never modify Architect files or ProductOwner content files (requirements, incidents, context) from the Developer role. Status updates in `backlog.md` and `sprint.md` are allowed (see Step 9).
 5. **Keep files in sync** — if implementation reveals a need for architectural changes, flag it but don't change architecture files directly.
-6. **Build must pass** — no task is complete until the project compiles and tests are green.
+6. **Build must pass** — no task is complete until the project compiles without errors or warnings. Do **not** run tests as part of the build step.
 7. **Accessibility is not optional** — every view must support VoiceOver, Dynamic Type, and Dark Mode.
 
 ---
@@ -132,6 +147,7 @@ Before considering the task done, verify **all** of the following:
 | Understand what to build                 | `../ProductOwner/sprint.md`, `../ProductOwner/requirements.md` |
 | Know where code should live              | `../Architect/architecture.md`                                 |
 | Know how to name things                  | `../Architect/conventions.md`                                  |
+| Model domain objects or apply DDD        | `IOs/references/ddd-patterns.md`                               |
 | Lay out a screen with proper spacing     | `IOs/references/hig-patterns.md`                               |
 | Add navigation (push, sheet, tab)        | `IOs/references/ios-navigation.md`                             |
 | Build a list, form, button, or animation | `IOs/references/swiftui-components.md`                         |

@@ -1,9 +1,6 @@
----
-name: ios-testing
-description: Implement comprehensive testing strategies for iOS apps. Use when writing unit tests, UI tests, integration tests, snapshot tests, setting up test coverage, mocking dependencies, or implementing TDD. Part of the idea-to-App-Store workflow between development and CI/CD.
----
-
 # iOS Testing
+
+> Testing strategies, patterns, and conventions for the project. Referenced by [Developer/index.md](index.md) Step 5.
 
 Comprehensive testing strategies for robust iOS applications.
 
@@ -455,8 +452,3 @@ Tests/
     └── Flows/
         └── LoginFlowTests.swift
 ```
-
-## Resources
-
-See [references/testing-patterns.md](references/testing-patterns.md) for advanced patterns.
-See [references/tdd-guide.md](references/tdd-guide.md) for TDD workflow.

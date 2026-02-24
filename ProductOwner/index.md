@@ -30,20 +30,20 @@ index.md          ← You are here. Instructions for AI.
           │      └──── incidents.md     ← Detailed description of each incident (I-XXX).
           │
           └─► sprint.md       ← Current sprint work items (pulled from backlog.md by ID).
-                                 Columns: ID | Type | Name | Description | Acceptance Criteria | Owner
+                                 Columns: ID | Type | Name | Owner | Status
 ```
 
 ---
 
 ## 3. File Descriptions
 
-| File                               | Purpose                                                      | Key Fields                                              |
-| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
-| [context.md](context.md)           | Project overview and links to every other file.              | Project Name, Description, Tech Stack, References       |
-| [requirements.md](requirements.md) | One section per user story with a very detailed description. | ID (`US-XXX`), Name, Description                        |
-| [incidents.md](incidents.md)       | One section per incident with a very detailed description.   | ID (`I-XXX`), Name, Description                         |
-| [backlog.md](backlog.md)           | Single source of truth for all items and their status.       | ID, Type (`US` / `I`), Name, Status                     |
-| [sprint.md](sprint.md)             | Items actively being worked on in the current sprint.        | ID, Type, Name, Description, Acceptance Criteria, Owner |
+| File                               | Purpose                                                      | Key Fields                                        |
+| ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------- |
+| [context.md](context.md)           | Project overview and links to every other file.              | Project Name, Description, Tech Stack, References |
+| [requirements.md](requirements.md) | One section per user story with a very detailed description. | ID (`US-XXX`), Name, Description                  |
+| [incidents.md](incidents.md)       | One section per incident with a very detailed description.   | ID (`I-XXX`), Name, Description                   |
+| [backlog.md](backlog.md)           | Single source of truth for all items and their status.       | ID, Type (`US` / `I`), Name, Status               |
+| [sprint.md](sprint.md)             | Items actively being worked on in the current sprint.        | ID, Type, Name, Owner, Status                     |
 
 ---
 
@@ -56,7 +56,9 @@ index.md          ← You are here. Instructions for AI.
 
 ---
 
-## 5. Status Values (used in backlog.md)
+## 5. Status Values
+
+### Backlog Status (used in backlog.md)
 
 | Status          | Meaning                                             |
 | --------------- | --------------------------------------------------- |
@@ -65,17 +67,24 @@ index.md          ← You are here. Instructions for AI.
 | **Completed**   | Item is finished and accepted.                      |
 | **Canceled**    | Item has been dropped and will not be worked on.    |
 
+### Sprint Status (used in sprint.md)
+
+| Status          | Meaning                                                                             |
+| --------------- | ----------------------------------------------------------------------------------- |
+| **To Do**       | Item is in the sprint but work has not started yet.                                 |
+| **In Progress** | Item is actively being worked on.                                                   |
+| **Done**        | Item is finished — update backlog to **Completed** and remove the item from sprint. |
+
 ---
 
 ## 6. Owner Values (used in sprint.md)
 
 The **Owner** field determines which role the AI should adopt when working on a task:
 
-| Owner         | Responsibility                                                                            |
-| ------------- | ----------------------------------------------------------------------------------------- |
-| **Architect** | System design, data models, project structure decisions.                                  |
-| **Developer** | Business logic, services, data persistence, views, components, user interaction, styling. |
-| **QA**        | Testing, validation, edge-case coverage.                                                  |
+| Owner         | Responsibility                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------------- |
+| **Architect** | System design, data models, project structure decisions.                                                 |
+| **Developer** | Implementation, testing (TDD), services, data persistence, views, components, user interaction, styling. |
 
 ---
 
